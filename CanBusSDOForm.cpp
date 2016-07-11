@@ -307,7 +307,10 @@ void __fastcall TCanBusForm::StartNodeButtonClick(TObject *Sender)
 	err = PCAN_ERROR_QRCVEMPTY;
 
 	// Poll the CAN Bus for the response message and time it
-	while((err == PCAN_ERROR_QRCVEMPTY) && (t > time(NULL)))
+while(((err == PCAN_ERROR_QRCVEMPTY)||
+		   (rcvMsg.ID == dataMessPeriod)||
+		   (rcvMsg.ID == switchMess))&&
+		   (t > time(NULL))) // if no messages loop
 	{
 		err = CAN_Read(PCAN_USBBUS1, &rcvMsg, &timestamp);
 		if(rcvMsg.ID == 0x01) //Discard spurious message
@@ -368,8 +371,10 @@ void __fastcall TCanBusForm::StopButtonClick(TObject *Sender)
 	err = PCAN_ERROR_QRCVEMPTY;
 
 	// Poll the CAN Bus for the response message and time it
-	while((err == PCAN_ERROR_QRCVEMPTY) && (t > time(NULL)))
-
+while(((err == PCAN_ERROR_QRCVEMPTY)||
+		   (rcvMsg.ID == dataMessPeriod)||
+		   (rcvMsg.ID == switchMess))&&
+		   (t > time(NULL))) // if no messages loop
 		err = CAN_Read(PCAN_USBBUS1, &rcvMsg, &timestamp);
 
 	if (err == PCAN_ERROR_OK)
@@ -522,8 +527,10 @@ void __fastcall TCanBusForm::ExitConfigButtonClick(TObject *Sender)
 	err = PCAN_ERROR_QRCVEMPTY;
 
 	// if no messages loop)
-	while((err == PCAN_ERROR_QRCVEMPTY) && (t > time(NULL)))
-
+while(((err == PCAN_ERROR_QRCVEMPTY)||
+		   (rcvMsg.ID == dataMessPeriod)||
+		   (rcvMsg.ID == switchMess))&&
+		   (t > time(NULL))) // if no messages loop
 		err = CAN_Read(PCAN_USBBUS1, &rcvMsg, &timestamp);
 
 	if (err == PCAN_ERROR_OK)
@@ -1927,7 +1934,10 @@ void ProcessPBITResponse()
 	err = PCAN_ERROR_QRCVEMPTY;
 
 	// if no messages loop)
-	while((err == PCAN_ERROR_QRCVEMPTY) && (t > time(NULL)))
+while(((err == PCAN_ERROR_QRCVEMPTY)||
+		   (rcvMsg.ID == dataMessPeriod)||
+		   (rcvMsg.ID == switchMess))&&
+		   (t > time(NULL))) // if no messages loop
 	{
 		err = CAN_Read(PCAN_USBBUS1, &rcvMsg, &timestamp);
 	}
@@ -2152,7 +2162,10 @@ void ProcessCBITResponse()
 	err = PCAN_ERROR_QRCVEMPTY;
 
 	// if no messages loop)
-	while((err == PCAN_ERROR_QRCVEMPTY) && (t > time(NULL)))
+while(((err == PCAN_ERROR_QRCVEMPTY)||
+		   (rcvMsg.ID == dataMessPeriod)||
+		   (rcvMsg.ID == switchMess))&&
+		   (t > time(NULL))) // if no messages loop
 	{
 		err = CAN_Read(PCAN_USBBUS1, &rcvMsg, &timestamp);
 	}
@@ -2354,7 +2367,10 @@ void ProcessIBITResponse()
 	err = PCAN_ERROR_QRCVEMPTY;
 
 	// if no messages loop)
-	while((err == PCAN_ERROR_QRCVEMPTY) && (t > time(NULL)))
+while(((err == PCAN_ERROR_QRCVEMPTY)||
+		   (rcvMsg.ID == dataMessPeriod)||
+		   (rcvMsg.ID == switchMess))&&
+		   (t > time(NULL))) // if no messages loop
 	{
 		err = CAN_Read(PCAN_USBBUS1, &rcvMsg, &timestamp);
 	}
@@ -2433,7 +2449,10 @@ void ProcessTimingResponse()
 	err = PCAN_ERROR_QRCVEMPTY;
 
 	// if no messages loop)
-	while((err == PCAN_ERROR_QRCVEMPTY) && (t > time(NULL)))
+while(((err == PCAN_ERROR_QRCVEMPTY)||
+		   (rcvMsg.ID == dataMessPeriod)||
+		   (rcvMsg.ID == switchMess))&&
+		   (t > time(NULL))) // if no messages loop
 	{
 		err = CAN_Read(PCAN_USBBUS1, &rcvMsg, &timestamp);
 	}
@@ -2474,7 +2493,10 @@ void CheckCurveVersionResponse(int curve_id)
 	err = PCAN_ERROR_QRCVEMPTY;
 
 	// if no messages loop)
-	while((err == PCAN_ERROR_QRCVEMPTY) && (t > time(NULL)))
+while(((err == PCAN_ERROR_QRCVEMPTY)||
+		   (rcvMsg.ID == dataMessPeriod)||
+		   (rcvMsg.ID == switchMess))&&
+		   (t > time(NULL))) // if no messages loop
 
 		err = CAN_Read(PCAN_USBBUS1, &rcvMsg, &timestamp);
 
